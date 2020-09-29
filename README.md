@@ -43,7 +43,7 @@ hello(c("it's", "me"))
 To do so :
 
   - Paste `check::setup()` in an a R file of your package. It will
-    create local copies of `check::check`, `check::check_set_fun`, and a
+    create local copies of `check::check`, `check::set_check_fun`, and a
     `check_funs` environment
 
   - Right below define assertions using `set_check_fun(...)`

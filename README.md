@@ -25,7 +25,7 @@ hello <- function(x) {
     "`x` must be a character vector of length 1."
     # we can add more
     )
-  print(paste("hello", x))
+  paste("hello", x)
 }
 
 hello("world")
@@ -35,13 +35,18 @@ hello(c("it's", "me"))
 #> Error: `x` must be a character vector of length 1.
 ```
 
+  - The error messages are the code, so it’s very readable.
+  - Assertion patterns are defined for the package and are reused in
+    different functions, so it is both enforcing consistency and leaving
+    complete flexibility to the users.
+
 To do so :
 
   - Paste `check::setup()` in an a R file of your package. It will
     create local copies of `check::check`, `check::check_set_fun`, and a
     `check_funs` environment
 
-  - Right below define assertions using `check_set_fun(...)`
+  - Right below define assertions using `set_check_fun(...)`
 
 For instance have a “check.R” file containing :
 
@@ -62,16 +67,11 @@ If you forget what patterns to use, then type `check_funs$` and
 auto-complete will show you what you’ve defined. If you misspell a
 pattern, `check` will suggest the closest fit to you.
 
-## Why
+## Caveats
 
-  - The error messages are the code, so it’s very readable.
-  - Assertion functions are defined for the package package and are
-    reused in different functions, so it is both enforcing consistency
-    and leaving complete flexibility to the users.
-
-Caveats :
-
-  - More setup than packages mentioned above
-  - doesn’t currently tell you more about the problematic arguments
+  - A bit more setup than packages mentioned above. We could provide a
+    `check_funs` environment with some patterns usable out of the box,
+    for most common checks.
+  - Doesn’t currently tell you more about the problematic arguments
     (e.g. failing example above doesn’t tell you that it fails because
     `x` is of length 2)
